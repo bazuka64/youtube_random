@@ -90,7 +90,7 @@ class App:
         if not os.path.exists(CLIENT_SECRETS_FILE):
             messagebox.showerror(
                 "エラー",
-                f"{CLIENT_SECRETS_FILE} が見つかりません。\nSETUP.md の手順で認証情報を取得してください。"
+                f"{CLIENT_SECRETS_FILE} が見つかりません。\nREADME.md の手順で認証情報を取得してください。"
             )
             self.root.destroy()
             return
