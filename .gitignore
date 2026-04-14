@@ -2,3 +2,5 @@ client_secrets.json
 token.pickle
 __pycache__/
 *.pyc
+subscribed_cache.json
+liked_channels_cache.json
