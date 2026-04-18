@@ -320,7 +320,7 @@ class App:
         self.current_mode = None
         self._building = set()
 
-        self._center_window(500, 340)
+        self._center_window(334, 420)
         self._build_loading_ui()
         self.root.after(100, self._start_auth)
 
@@ -406,7 +406,7 @@ class App:
 
         self._title_label = tk.Label(
             title_wrap, text="", font=("", 11, "bold"),
-            wraplength=468, justify="left", anchor="nw",
+            wraplength=302, justify="left", anchor="nw",
         )
         self._title_label.place(relwidth=1, relheight=1)
 
@@ -422,7 +422,7 @@ class App:
 
         tk.Frame(self.root, height=1, bg="#e0e0e0").pack(fill="x")
 
-        # ── モードボタン行 ──
+        # ── モードボタン列 ──
         btn_frame = tk.Frame(self.root, padx=14, pady=8)
         btn_frame.pack(fill="x")
 
@@ -434,7 +434,7 @@ class App:
                 activebackground=color, activeforeground="white",
                 relief="flat", padx=10, pady=6, cursor="hand2",
                 command=lambda k=key: self._on_mode(k),
-            ).pack(side="left", padx=(0, 6))
+            ).pack(fill="x", pady=(0, 4))
 
         tk.Frame(self.root, height=1, bg="#f0f0f0").pack(fill="x")
 
