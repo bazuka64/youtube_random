@@ -101,6 +101,7 @@ def get_all_subscriptions(youtube, progress_cb):
             channels.append({
                 "channel_id": item["snippet"]["resourceId"]["channelId"],
                 "name": item["snippet"]["title"],
+                "published_at": item["snippet"].get("publishedAt", ""),
             })
         progress_cb(f"登録チャンネル取得中... {len(channels)} 件")
         next_token = resp.get("nextPageToken")
@@ -430,7 +431,11 @@ class App:
         tk.Button(sub_frame, text="キャッシュ削除", font=("", 9),
                   bg="#ddeeff", fg="#1a73e8", activebackground="#c5e0ff",
                   relief="flat", padx=8, pady=3, cursor="hand2",
-                  command=self._clear_subscribed_cache).pack(side="left")
+                  command=self._clear_subscribed_cache).pack(side="left", padx=(0, 4))
+        tk.Button(sub_frame, text="一覧", font=("", 9),
+                  bg="#ddeeff", fg="#1a73e8", activebackground="#c5e0ff",
+                  relief="flat", padx=8, pady=3, cursor="hand2",
+                  command=self._show_subscriptions_list).pack(side="left")
 
         tk.Frame(self.root, height=1, bg="#f0f0f0").pack(fill="x")
 
@@ -543,6 +548,38 @@ class App:
     def _refresh_liked_channels(self):
         self._run_refresh("liked_channels",
             lambda prog: update_liked_channels_cache(self.youtube, self.subscriptions, prog))
+
+    def _show_subscriptions_list(self):
+        win = tk.Toplevel(self.root)
+        win.title(f"登録チャンネル一覧 (新しい順) — {len(self.subscriptions)} 件")
+        win.geometry("360x500")
+
+        frame = tk.Frame(win)
+        frame.pack(fill="both", expand=True, padx=8, pady=8)
+
+        scrollbar = tk.Scrollbar(frame)
+        scrollbar.pack(side="right", fill="y")
+
+        listbox = tk.Listbox(
+            frame, font=("", 10), selectmode="single",
+            yscrollcommand=scrollbar.set, activestyle="none",
+            cursor="hand2",
+        )
+        listbox.pack(side="left", fill="both", expand=True)
+        scrollbar.config(command=listbox.yview)
+
+        sorted_subs = sorted(self.subscriptions, key=lambda c: c.get("published_at", ""), reverse=True)
+        for i, ch in enumerate(sorted_subs, 1):
+            listbox.insert("end", f"{i}. {ch['name']}")
+
+        def on_select(event):
+            sel = listbox.curselection()
+            if not sel:
+                return
+            ch = sorted_subs[sel[0]]
+            webbrowser.open(f"https://www.youtube.com/channel/{ch['channel_id']}")
+
+        listbox.bind("<<ListboxSelect>>", on_select)
 
     def _clear_subscribed_cache(self):
         if messagebox.askyesno("確認", "登録チャンネルのキャッシュを削除しますか？"):
