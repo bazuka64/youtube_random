@@ -82,6 +82,7 @@ def get_all_liked_videos(youtube, progress_cb):
                 "title": item["snippet"]["title"],
                 "channel": item["snippet"]["channelTitle"],
                 "channel_id": item["snippet"]["channelId"],
+                "order": len(videos),
             })
         progress_cb(f"高評価動画取得中... {len(videos)} 件")
         next_token = resp.get("nextPageToken")
@@ -319,7 +320,7 @@ class App:
         self.current_mode = None
         self._building = set()
 
-        self._center_window(500, 310)
+        self._center_window(500, 340)
         self._build_loading_ui()
         self.root.after(100, self._start_auth)
 
@@ -351,16 +352,11 @@ class App:
         def worker():
             try:
                 yt = authenticate()
-                subs = get_all_subscriptions(
-                    yt,
-                    lambda t: self._ui(lambda t=t: self._progress_label.config(text=t)),
-                )
             except Exception as e:
                 self._ui(lambda: messagebox.showerror("エラー", str(e)))
                 self._ui(self.root.destroy)
                 return
             self.youtube = yt
-            self.subscriptions = subs
             self._ui(self._finish_auth)
 
         threading.Thread(target=worker, daemon=True).start()
@@ -368,6 +364,29 @@ class App:
     def _finish_auth(self):
         self._loading_frame.destroy()
         self._build_main_ui()
+        self._start_liked_prefetch()
+
+    def _start_liked_prefetch(self):
+        self._building.add("liked")
+
+        def worker():
+            try:
+                videos = get_all_liked_videos(
+                    self.youtube,
+                    lambda t: self._ui(lambda t=t: self._mode_label.config(text=t)),
+                )
+            except Exception:
+                self._building.discard("liked")
+                return
+            self._building.discard("liked")
+            random.shuffle(videos)
+            self.pools["liked"] = videos
+            self.remaining["liked"] = videos.copy()
+            self._ui(lambda: self._mode_label.config(text="← ボタンを押して動画を開く"))
+            if self.current_mode == "liked":
+                self._ui(lambda: self._open_next("liked"))
+
+        threading.Thread(target=worker, daemon=True).start()
 
     # ── メイン画面 ────────────────────────────────────
 
@@ -453,16 +472,29 @@ class App:
                   relief="flat", padx=8, pady=3, cursor="hand2",
                   command=self._clear_liked_channels_cache).pack(side="left")
 
+        tk.Frame(self.root, height=1, bg="#f0f0f0").pack(fill="x")
+
+        # ── 高く評価した動画用ツール行 ──
+        liked_frame = tk.Frame(self.root, padx=14, pady=5)
+        liked_frame.pack(fill="x")
+
+        tk.Label(liked_frame, text="高く評価した動画:", font=("", 8), fg="#FF0000").pack(side="left", padx=(0, 5))
+        tk.Button(liked_frame, text="一覧", font=("", 9),
+                  bg="#ffdddd", fg="#FF0000", activebackground="#ffbbbb",
+                  relief="flat", padx=8, pady=3, cursor="hand2",
+                  command=self._show_liked_list).pack(side="left")
+
     # ── モード選択 ────────────────────────────────────
 
     def _on_mode(self, mode_key):
-        if mode_key in self._building:
-            return
+        self.current_mode = mode_key
         if self.pools[mode_key]:
-            self.current_mode = mode_key
             self._open_next(mode_key)
+        elif mode_key in self._building:
+            self._title_label.config(text="取得中... 完了後に自動で開きます")
+            self._channel_label.config(text="")
+            self._count_label.config(text="")
         else:
-            self.current_mode = mode_key
             self._start_pool_build(mode_key)
 
     def _start_pool_build(self, mode_key):
@@ -477,6 +509,10 @@ class App:
 
         def worker():
             try:
+                if mode_key == "subscribed" and not self.subscriptions:
+                    existing = _load_cache(SUBSCRIBED_CACHE_FILE)
+                    if not existing["channels"]:
+                        self.subscriptions = get_all_subscriptions(self.youtube, prog)
                 if mode_key == "liked":
                     videos = build_liked_pool(self.youtube, prog)
                 elif mode_key == "liked_channels":
@@ -541,15 +577,47 @@ class App:
 
         threading.Thread(target=worker, daemon=True).start()
 
+    def _ensure_subscriptions(self, prog):
+        if not self.subscriptions:
+            self.subscriptions = get_all_subscriptions(self.youtube, prog)
+
     def _refresh_subscribed(self):
-        self._run_refresh("subscribed",
-            lambda prog: update_subscribed_cache(self.youtube, self.subscriptions, prog))
+        def fn(prog):
+            self._ensure_subscriptions(prog)
+            return update_subscribed_cache(self.youtube, self.subscriptions, prog)
+        self._run_refresh("subscribed", fn)
 
     def _refresh_liked_channels(self):
-        self._run_refresh("liked_channels",
-            lambda prog: update_liked_channels_cache(self.youtube, self.subscriptions, prog))
+        def fn(prog):
+            self._ensure_subscriptions(prog)
+            return update_liked_channels_cache(self.youtube, self.subscriptions, prog)
+        self._run_refresh("liked_channels", fn)
 
     def _show_subscriptions_list(self):
+        if not self.subscriptions:
+            if "subscribed" in self._building:
+                messagebox.showinfo("情報", "読み込み中です。しばらくお待ちください。")
+                return
+            self._building.add("_subs_list")
+            self._title_label.config(text="登録チャンネル取得中...")
+            self._channel_label.config(text="")
+
+            def worker():
+                try:
+                    self.subscriptions = get_all_subscriptions(
+                        self.youtube,
+                        lambda t: self._ui(lambda t=t: self._title_label.config(text=t)),
+                    )
+                except Exception as e:
+                    self._building.discard("_subs_list")
+                    self._ui(lambda: messagebox.showerror("エラー", str(e)))
+                    return
+                self._building.discard("_subs_list")
+                self._ui(self._show_subscriptions_list)
+
+            threading.Thread(target=worker, daemon=True).start()
+            return
+
         win = tk.Toplevel(self.root)
         win.title(f"登録チャンネル一覧 (新しい順) — {len(self.subscriptions)} 件")
         win.geometry("360x500")
@@ -578,6 +646,61 @@ class App:
                 return
             ch = sorted_subs[sel[0]]
             webbrowser.open(f"https://www.youtube.com/channel/{ch['channel_id']}")
+
+        listbox.bind("<<ListboxSelect>>", on_select)
+
+    def _show_liked_list(self):
+        if not self.pools.get("liked"):
+            messagebox.showinfo("情報", "取得中です。完了後にもう一度押してください。")
+            return
+
+        videos = self.pools["liked"]
+        sorted_videos = sorted(videos, key=lambda v: v.get("order", 0))
+
+        win = tk.Toplevel(self.root)
+        win.title(f"高く評価した動画 — {len(sorted_videos)} 件")
+        win.geometry("480x520")
+
+        search_frame = tk.Frame(win, padx=8, pady=6)
+        search_frame.pack(fill="x")
+        tk.Label(search_frame, text="検索:", font=("", 9)).pack(side="left", padx=(0, 4))
+        search_var = tk.StringVar()
+        search_entry = tk.Entry(search_frame, textvariable=search_var, font=("", 10))
+        search_entry.pack(side="left", fill="x", expand=True)
+
+        frame = tk.Frame(win)
+        frame.pack(fill="both", expand=True, padx=8, pady=(0, 8))
+
+        scrollbar = tk.Scrollbar(frame)
+        scrollbar.pack(side="right", fill="y")
+
+        listbox = tk.Listbox(
+            frame, font=("", 9), selectmode="single",
+            yscrollcommand=scrollbar.set, activestyle="none",
+            cursor="hand2",
+        )
+        listbox.pack(side="left", fill="both", expand=True)
+        scrollbar.config(command=listbox.yview)
+
+        filtered = list(sorted_videos)
+
+        def _refresh_list(*_):
+            nonlocal filtered
+            q = search_var.get().lower()
+            filtered = [v for v in sorted_videos if q in v["title"].lower() or q in v["channel"].lower()]
+            listbox.delete(0, "end")
+            for i, v in enumerate(filtered, 1):
+                listbox.insert("end", f"{i}. {v['title']}  [{v['channel']}]")
+
+        _refresh_list()
+        search_var.trace_add("write", _refresh_list)
+
+        def on_select(event):
+            sel = listbox.curselection()
+            if not sel:
+                return
+            v = filtered[sel[0]]
+            webbrowser.open(f"https://www.youtube.com/watch?v={v['id']}")
 
         listbox.bind("<<ListboxSelect>>", on_select)
 
