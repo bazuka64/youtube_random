@@ -1,3 +1,4 @@
+import ctypes
 import json
 import os
 import random
@@ -6,6 +7,8 @@ import webbrowser
 import pickle
 import tkinter as tk
 from tkinter import messagebox
+
+ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
