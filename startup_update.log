@@ -1,0 +1,350 @@
+2026-04-27 12:45:29,137 file_cache is only supported with oauth2client<4.0.0
+2026-04-27 12:45:29,581 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&alt=json
+2026-04-27 12:45:29,930 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&alt=json
+2026-04-27 12:45:30,225 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:45:30,334 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:45:30,428 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:45:30,594 起動時更新エラー: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2710)
+Traceback (most recent call last):
+  File "C:\Users\pentan\Desktop\youtube_random\main.py", line 415, in worker
+    subs = get_all_subscriptions(self.youtube, prog)
+  File "C:\Users\pentan\Desktop\youtube_random\main.py", line 111, in get_all_subscriptions
+    ).execute()
+      ~~~~~~~^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\googleapiclient\_helpers.py", line 130, in positional_wrapper
+    return wrapped(*args, **kwargs)
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\googleapiclient\http.py", line 923, in execute
+    resp, content = _retry_request(
+                    ~~~~~~~~~~~~~~^
+        http,
+        ^^^^^
+    ...<7 lines>...
+        headers=self.headers,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\googleapiclient\http.py", line 222, in _retry_request
+    raise exception
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\googleapiclient\http.py", line 191, in _retry_request
+    resp, content = http.request(uri, method, *args, **kwargs)
+                    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\google_auth_httplib2.py", line 216, in request
+    response, content = self.http.request(
+                        ~~~~~~~~~~~~~~~~~^
+        uri,
+        ^^^^
+    ...<5 lines>...
+        **kwargs
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\httplib2\__init__.py", line 1727, in request
+    (response, content) = self._request(
+                          ~~~~~~~~~~~~~^
+        conn, authority, uri, request_uri, method, body, headers, redirections, cachekey,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\httplib2\__init__.py", line 1447, in _request
+    (response, content) = self._conn_request(conn, request_uri, method, body, headers)
+                          ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\site-packages\httplib2\__init__.py", line 1399, in _conn_request
+    response = conn.getresponse()
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\http\client.py", line 1450, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\pentan\AppData\Local\Programs\Python\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+ssl.SSLError: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2710)
+2026-04-27 12:48:35,926 file_cache is only supported with oauth2client<4.0.0
+2026-04-27 12:48:36,346 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&alt=json
+2026-04-27 12:48:36,961 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:48:37,078 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:48:37,211 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:48:37,327 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:48:37,439 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:48:37,604 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKwCEAA&alt=json
+2026-04-27 12:48:37,730 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CN4CEAA&alt=json
+2026-04-27 12:48:37,843 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJADEAA&alt=json
+2026-04-27 12:48:37,963 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMIDEAA&alt=json
+2026-04-27 12:48:38,078 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPQDEAA&alt=json
+2026-04-27 12:48:38,208 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKYEEAA&alt=json
+2026-04-27 12:48:38,326 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNgEEAA&alt=json
+2026-04-27 12:48:38,465 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIoFEAA&alt=json
+2026-04-27 12:48:38,584 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLwFEAA&alt=json
+2026-04-27 12:48:38,725 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CO4FEAA&alt=json
+2026-04-27 12:48:38,842 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKAGEAA&alt=json
+2026-04-27 12:48:38,955 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNIGEAA&alt=json
+2026-04-27 12:48:39,083 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIQHEAA&alt=json
+2026-04-27 12:48:39,183 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLYHEAA&alt=json
+2026-04-27 12:48:39,665 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&alt=json
+2026-04-27 12:48:39,854 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:48:39,994 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:48:40,129 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:48:40,253 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:48:40,415 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:48:40,538 登録CH新規: 6 件 (API: 273, cache: 273)
+2026-04-27 12:48:40,547 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCsaREtuy3SQMFVjaONC4AYQ&alt=json
+2026-04-27 12:48:40,634 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUsaREtuy3SQMFVjaONC4AYQ&maxResults=50&alt=json
+2026-04-27 12:48:41,130 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUsaREtuy3SQMFVjaONC4AYQ&maxResults=50&pageToken=EAAaHlBUOkNESWlFRVF6TVRjME56azNSVUZEUmpNNFF6Zw&alt=json
+2026-04-27 12:48:41,406 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUsaREtuy3SQMFVjaONC4AYQ&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRFpETmpRM00wWTNNa05HUVVZeU9VTQ&alt=json
+2026-04-27 12:48:41,707 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUsaREtuy3SQMFVjaONC4AYQ&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEEzTjBVelFrUXpRemhCUVRBM09FWXo&alt=json
+2026-04-27 12:48:41,967 登録CH追加: Maafia
+2026-04-27 12:48:41,970 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UC0iyigkd9C5FbB6Z-dbNVtA&alt=json
+2026-04-27 12:48:42,037 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU0iyigkd9C5FbB6Z-dbNVtA&maxResults=50&alt=json
+2026-04-27 12:48:42,554 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU0iyigkd9C5FbB6Z-dbNVtA&maxResults=50&pageToken=EAAaHlBUOkNESWlFRU5CUlRWQk5VTTJOVE01TnprMVFVRQ&alt=json
+2026-04-27 12:48:42,830 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU0iyigkd9C5FbB6Z-dbNVtA&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRGxEUWtKQ1JrTkRNVGRGUkVKRk1qYw&alt=json
+2026-04-27 12:48:43,137 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UU0iyigkd9C5FbB6Z-dbNVtA&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEJCUWpjMk5rRkRNVFV6T0RSRVFVVTA&alt=json
+2026-04-27 12:48:43,464 登録CH追加: Stevoisiak
+2026-04-27 12:48:43,467 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UClGAMDK682_NC-MBVsw63UA&alt=json
+2026-04-27 12:48:43,536 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUlGAMDK682_NC-MBVsw63UA&maxResults=50&alt=json
+2026-04-27 12:48:43,896 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUlGAMDK682_NC-MBVsw63UA&maxResults=50&pageToken=EAAaHlBUOkNESWlFRFF5TmpJek16azFRa1k1TTBRME9EYw&alt=json
+2026-04-27 12:48:44,195 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUlGAMDK682_NC-MBVsw63UA&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRE5GTlVRNFFVRkJRek0zUTBJelEwWQ&alt=json
+2026-04-27 12:48:44,501 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUlGAMDK682_NC-MBVsw63UA&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEEzTWpWRE9UazJSVEJFUXpVMlFVWkI&alt=json
+2026-04-27 12:48:44,820 登録CH追加: Dot. CG
+2026-04-27 12:48:44,823 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCoGAipzzMjfmRdoVMDyuTQw&alt=json
+2026-04-27 12:48:44,890 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUoGAipzzMjfmRdoVMDyuTQw&maxResults=50&alt=json
+2026-04-27 12:48:45,349 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUoGAipzzMjfmRdoVMDyuTQw&maxResults=50&pageToken=EAAaHlBUOkNESWlFRGs1UmtRNVFrUTBOa1ExTURRMU1qVQ&alt=json
+2026-04-27 12:48:45,696 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUoGAipzzMjfmRdoVMDyuTQw&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRFJHUlVORVJUTTFOVVU1T0RVNFJURQ&alt=json
+2026-04-27 12:48:46,046 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUoGAipzzMjfmRdoVMDyuTQw&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEJDUWpnMU5qbENPVU5HTURkRFFqSkU&alt=json
+2026-04-27 12:48:46,389 登録CH追加: にわかがやってるMMDチャンネル
+2026-04-27 12:48:46,392 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCRC4bcpS2y1hh-Rabs0-vkQ&alt=json
+2026-04-27 12:48:46,456 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UURC4bcpS2y1hh-Rabs0-vkQ&maxResults=50&alt=json
+2026-04-27 12:48:46,810 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UURC4bcpS2y1hh-Rabs0-vkQ&maxResults=50&pageToken=EAAaHlBUOkNESWlFRU0xTURKQ01qazJNemMxT0RkRlJFTQ&alt=json
+2026-04-27 12:48:47,072 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UURC4bcpS2y1hh-Rabs0-vkQ&maxResults=50&pageToken=EAAaHlBUOkNHUWlFREV5TUVJNU5UUkJSVE00TkRFek9VUQ&alt=json
+2026-04-27 12:48:47,317 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UURC4bcpS2y1hh-Rabs0-vkQ&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEJETlRFek16UTJOemxCUVVGR056azI&alt=json
+2026-04-27 12:48:47,593 登録CH追加: Hat-Loving Gamer
+2026-04-27 12:48:47,596 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCTIccX-vux4ktsd1zwe0XxA&alt=json
+2026-04-27 12:48:47,664 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json
+2026-04-27 12:48:47,883 登録CH失敗 ゆっくりモテ男アニメ解説: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+2026-04-27 12:48:48,243 高評価未登録CH新規: 5 件
+2026-04-27 12:48:48,246 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCAGhzNpACiDQTAg5RwDg3Bg&alt=json
+2026-04-27 12:48:48,298 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUAGhzNpACiDQTAg5RwDg3Bg&maxResults=50&alt=json
+2026-04-27 12:48:48,842 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUAGhzNpACiDQTAg5RwDg3Bg&maxResults=50&pageToken=EAAaHlBUOkNESWlFREJET0RjNE1ESTNOVUUyUTBGRVJVWQ&alt=json
+2026-04-27 12:48:49,156 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUAGhzNpACiDQTAg5RwDg3Bg&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRVF5UmtNeU9FTTRSRFpHTVRNeE5rVQ&alt=json
+2026-04-27 12:48:49,646 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUAGhzNpACiDQTAg5RwDg3Bg&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEF4UlRRek9UZzRPRU5FTXpRNU5ESkQ&alt=json
+2026-04-27 12:48:49,977 高評価CH追加: アオリザマァch
+2026-04-27 12:48:49,978 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCL8OHXLH4XfU9nC16GzR0ig&alt=json
+2026-04-27 12:48:50,044 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUL8OHXLH4XfU9nC16GzR0ig&maxResults=50&alt=json
+2026-04-27 12:48:50,707 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUL8OHXLH4XfU9nC16GzR0ig&maxResults=50&pageToken=EAAaHlBUOkNESWlFRGhGT1RaRE5UQTBRekF5TnpKR01UUQ&alt=json
+2026-04-27 12:48:51,030 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUL8OHXLH4XfU9nC16GzR0ig&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRE5ETURnNE5VWXpOME00TlRrNU1qZw&alt=json
+2026-04-27 12:48:51,345 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUL8OHXLH4XfU9nC16GzR0ig&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEJFTURnNU1FTXhPVFJCTjBZMU1UaEI&alt=json
+2026-04-27 12:48:51,679 高評価CH追加: ゲーム最新情報をお届け、ひみつきちチャンネルです。
+2026-04-27 12:48:51,682 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCG5-RaRdew4bVwzHTLOg8og&alt=json
+2026-04-27 12:48:51,742 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUG5-RaRdew4bVwzHTLOg8og&maxResults=50&alt=json
+2026-04-27 12:48:52,050 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUG5-RaRdew4bVwzHTLOg8og&maxResults=50&pageToken=EAAaHlBUOkNESWlFREZETWtORVF6ZzBRMFkxUlRBd016Yw&alt=json
+2026-04-27 12:48:52,358 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUG5-RaRdew4bVwzHTLOg8og&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRFJCTURoRE16RTJSakU0TVVKRU1FWQ&alt=json
+2026-04-27 12:48:52,694 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUG5-RaRdew4bVwzHTLOg8og&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEEyTkRVMVJVRTJORFF5TkRKQ01FUXk&alt=json
+2026-04-27 12:48:52,985 高評価CH追加: 今日の世界🌏
+2026-04-27 12:48:52,988 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCEUC3XV-L2l7zZB108UFCLg&alt=json
+2026-04-27 12:48:53,077 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUEUC3XV-L2l7zZB108UFCLg&maxResults=50&alt=json
+2026-04-27 12:48:53,477 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUEUC3XV-L2l7zZB108UFCLg&maxResults=50&pageToken=EAAaHlBUOkNESWlFRUZCUkVFd1FUZzBOemhHUTBZd01qVQ&alt=json
+2026-04-27 12:48:53,732 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUEUC3XV-L2l7zZB108UFCLg&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRVkzT1RZeE0wTkdSamhFUWpSRU16WQ&alt=json
+2026-04-27 12:48:54,065 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUEUC3XV-L2l7zZB108UFCLg&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEF4UmpVd09ERTJPVFExUVVNd09EUkc&alt=json
+2026-04-27 12:48:54,429 高評価CH追加: 見てる時間 
+2026-04-27 12:48:54,432 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCH8Uzn5DJxDN6lz4htR0VJQ&alt=json
+2026-04-27 12:48:54,512 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUH8Uzn5DJxDN6lz4htR0VJQ&maxResults=50&alt=json
+2026-04-27 12:48:54,960 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUH8Uzn5DJxDN6lz4htR0VJQ&maxResults=50&pageToken=EAAaHlBUOkNESWlFRGRCTlRnME9UY3dRVGhFT0VJeE1qTQ&alt=json
+2026-04-27 12:48:55,323 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUH8Uzn5DJxDN6lz4htR0VJQ&maxResults=50&pageToken=EAAaHlBUOkNHUWlFRU5GT0RVM056RXpNMEk0T1RBNU0wVQ&alt=json
+2026-04-27 12:48:55,715 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUH8Uzn5DJxDN6lz4htR0VJQ&maxResults=50&pageToken=EAAaH1BUOkNKWUJJaEExTURKRk5rWXpPVVkwTjBaRVJEaEY&alt=json
+2026-04-27 12:48:56,020 高評価CH追加: 2ch面白すぎワロタw
+2026-04-27 12:51:56,187 file_cache is only supported with oauth2client<4.0.0
+2026-04-27 12:51:56,781 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&alt=json
+2026-04-27 12:51:57,393 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:51:57,494 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:51:57,595 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:51:57,701 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:51:57,812 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:51:57,932 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKwCEAA&alt=json
+2026-04-27 12:51:58,051 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CN4CEAA&alt=json
+2026-04-27 12:51:58,192 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJADEAA&alt=json
+2026-04-27 12:51:58,291 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMIDEAA&alt=json
+2026-04-27 12:51:58,411 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPQDEAA&alt=json
+2026-04-27 12:51:58,543 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKYEEAA&alt=json
+2026-04-27 12:51:58,644 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNgEEAA&alt=json
+2026-04-27 12:51:58,767 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIoFEAA&alt=json
+2026-04-27 12:51:58,887 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLwFEAA&alt=json
+2026-04-27 12:51:59,016 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CO4FEAA&alt=json
+2026-04-27 12:51:59,124 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKAGEAA&alt=json
+2026-04-27 12:51:59,217 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNIGEAA&alt=json
+2026-04-27 12:51:59,334 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIQHEAA&alt=json
+2026-04-27 12:51:59,456 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLYHEAA&alt=json
+2026-04-27 12:51:59,944 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&alt=json
+2026-04-27 12:52:00,103 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:52:00,257 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:52:00,435 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:52:00,564 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:52:00,706 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:52:00,816 登録解除CH削除: IGN Japan
+2026-04-27 12:52:00,817 登録解除CH削除: Godot Engine
+2026-04-27 12:52:00,817 登録解除CH削除: SCIENCE CHANNEL（JST）
+2026-04-27 12:52:00,817 登録解除CH削除: ゆっくりkm
+2026-04-27 12:52:00,818 登録解除CH削除: 野市 零 / Zero Noichi
+2026-04-27 12:52:00,818 登録解除CH削除: 圧縮雑学チャンネル
+2026-04-27 12:52:00,818 登録CH新規: 1 件 / 削除: 6 件 (API: 273, cache: 272)
+2026-04-27 12:52:00,827 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCTIccX-vux4ktsd1zwe0XxA&alt=json
+2026-04-27 12:52:00,896 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json
+2026-04-27 12:52:01,125 登録CH失敗 ゆっくりモテ男アニメ解説: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+2026-04-27 12:52:01,473 高評価CH削除: HIROTO 【陽翔】
+2026-04-27 12:52:01,473 高評価CH削除: ‎TOSB Shop In BD 
+‎ㅤ
+‎ㅤ
+‎ㅤ
+‎ㅤ
+‎ㅤ
+‎ㅤ
+‎ㅤ
+‎ㅤ
+‎·
+2026-04-27 12:52:01,473 高評価CH削除: バズりすぎ
+2026-04-27 12:52:01,473 高評価CH削除: 1分くれ
+2026-04-27 12:52:01,473 高評価CH削除: bigboxSWE
+2026-04-27 12:52:01,473 高評価CH削除: Hat-Loving Gamer
+2026-04-27 12:52:01,473 高評価CH削除: まさおAIじっくり解説ch
+2026-04-27 12:52:01,473 高評価CH削除: 北の達人チャンネル
+2026-04-27 12:52:01,473 高評価CH削除: Irobiyo【東方が如く】
+2026-04-27 12:52:01,473 高評価CH削除: mediafactory
+2026-04-27 12:52:01,474 高評価CH削除: MegaMan Victory!
+2026-04-27 12:52:01,474 高評価CH削除: Dot. CG
+2026-04-27 12:52:01,474 高評価CH削除: Sauraen
+2026-04-27 12:52:01,474 高評価CH削除: かさ【ゆるオタ】
+2026-04-27 12:52:01,474 高評価CH削除: 白狼ナルの館!
+2026-04-27 12:52:01,474 高評価CH削除: MINE｜まいん
+2026-04-27 12:52:01,474 高評価CH削除: HIGASHI KAZE
+2026-04-27 12:52:01,474 高評価CH削除: show-jow nico
+2026-04-27 12:52:01,474 高評価CH削除: ちんぱん
+2026-04-27 12:52:01,474 高評価CH削除: ポケポケ！ゆっくりポケモン情報局
+2026-04-27 12:52:01,474 高評価CH削除: k16
+2026-04-27 12:52:01,474 高評価CH削除: ユウ東方動画投稿者
+2026-04-27 12:52:01,474 高評価CH削除: Sr Pelo
+2026-04-27 12:52:01,474 高評価CH削除: つぶあんの人
+2026-04-27 12:52:01,474 高評価CH削除: Hillbillyspree
+2026-04-27 12:52:01,474 高評価CH削除: 8TH
+2026-04-27 12:52:01,475 高評価CH削除: 霊夢の3分ハッキング
+2026-04-27 12:52:01,475 高評価CH削除: 漫画情報放送局
+2026-04-27 12:52:01,475 高評価CH削除: ダークサイド / DarkSide
+2026-04-27 12:52:01,475 高評価CH削除: Randoviz
+2026-04-27 12:52:01,475 高評価CH削除: AeroSenpai 3.0
+2026-04-27 12:52:01,475 高評価CH削除: Lotus Media
+2026-04-27 12:52:01,475 高評価CH削除: Malon Rose
+2026-04-27 12:52:01,475 高評価CH削除: Competer
+2026-04-27 12:52:01,475 高評価CH削除: GA文庫チャンネル
+2026-04-27 12:52:01,475 高評価CH削除: Dorkly
+2026-04-27 12:52:01,475 高評価CH削除: デュエマゆっくり情報局
+2026-04-27 12:52:01,475 高評価CH削除: Tylan 64 - Extra
+2026-04-27 12:52:01,475 高評価CH削除: 机上論者かねこ
+2026-04-27 12:52:01,475 高評価CH削除: Comparison Pulse
+2026-04-27 12:52:01,475 高評価CH削除: ANNnewsCH
+2026-04-27 12:52:01,475 高評価CH削除: 佐倉あましん
+2026-04-27 12:52:01,476 高評価CH削除: Maafia
+2026-04-27 12:52:01,476 高評価CH削除: 「ただよび」理系チャンネル
+2026-04-27 12:52:01,476 高評価未登録CH新規: 0 件 / 削除: 44 件
+2026-04-27 12:52:43,498 file_cache is only supported with oauth2client<4.0.0
+2026-04-27 12:52:43,903 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&alt=json
+2026-04-27 12:52:44,480 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:52:44,598 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:52:44,708 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:52:44,806 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:52:44,903 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:52:45,012 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKwCEAA&alt=json
+2026-04-27 12:52:45,117 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CN4CEAA&alt=json
+2026-04-27 12:52:45,222 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJADEAA&alt=json
+2026-04-27 12:52:45,310 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMIDEAA&alt=json
+2026-04-27 12:52:45,458 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPQDEAA&alt=json
+2026-04-27 12:52:45,582 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKYEEAA&alt=json
+2026-04-27 12:52:45,694 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNgEEAA&alt=json
+2026-04-27 12:52:45,832 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIoFEAA&alt=json
+2026-04-27 12:52:45,930 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLwFEAA&alt=json
+2026-04-27 12:52:46,057 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CO4FEAA&alt=json
+2026-04-27 12:52:46,267 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKAGEAA&alt=json
+2026-04-27 12:52:46,371 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNIGEAA&alt=json
+2026-04-27 12:52:46,491 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIQHEAA&alt=json
+2026-04-27 12:52:46,604 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLYHEAA&alt=json
+2026-04-27 12:52:47,076 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&alt=json
+2026-04-27 12:52:47,226 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:52:47,438 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:52:47,561 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:52:47,691 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:52:47,842 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:52:47,974 登録CH新規: 1 件 / 削除: 0 件 (API: 273, cache: 272)
+2026-04-27 12:52:47,984 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCTIccX-vux4ktsd1zwe0XxA&alt=json
+2026-04-27 12:52:48,048 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json
+2026-04-27 12:52:48,237 登録CH失敗 ゆっくりモテ男アニメ解説: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+2026-04-27 12:52:48,642 高評価未登録CH新規: 0 件 / 削除: 0 件
+2026-04-27 12:54:10,180 file_cache is only supported with oauth2client<4.0.0
+2026-04-27 12:54:10,679 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&alt=json
+2026-04-27 12:54:11,240 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:54:11,330 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:54:11,438 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:54:11,546 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:54:11,668 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:54:11,806 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKwCEAA&alt=json
+2026-04-27 12:54:11,917 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CN4CEAA&alt=json
+2026-04-27 12:54:12,036 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJADEAA&alt=json
+2026-04-27 12:54:12,129 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMIDEAA&alt=json
+2026-04-27 12:54:12,250 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPQDEAA&alt=json
+2026-04-27 12:54:12,368 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKYEEAA&alt=json
+2026-04-27 12:54:12,456 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNgEEAA&alt=json
+2026-04-27 12:54:12,566 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIoFEAA&alt=json
+2026-04-27 12:54:12,665 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLwFEAA&alt=json
+2026-04-27 12:54:12,776 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CO4FEAA&alt=json
+2026-04-27 12:54:12,886 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKAGEAA&alt=json
+2026-04-27 12:54:12,990 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNIGEAA&alt=json
+2026-04-27 12:54:13,103 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIQHEAA&alt=json
+2026-04-27 12:54:13,208 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLYHEAA&alt=json
+2026-04-27 12:54:13,687 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&alt=json
+2026-04-27 12:54:13,873 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:54:14,003 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:54:14,132 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:54:14,271 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:54:14,399 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:54:14,536 登録CH新規: 1 件 / 削除: 0 件 (API: 273, cache: 272)
+2026-04-27 12:54:14,545 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCTIccX-vux4ktsd1zwe0XxA&alt=json
+2026-04-27 12:54:14,610 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json
+2026-04-27 12:54:14,800 登録CH失敗 ゆっくりモテ男アニメ解説: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+2026-04-27 12:54:15,136 高評価未登録CH新規: 0 件 / 削除: 0 件
+2026-04-27 12:55:56,128 file_cache is only supported with oauth2client<4.0.0
+2026-04-27 12:55:56,543 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&alt=json
+2026-04-27 12:55:57,130 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:55:57,226 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:55:57,319 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:55:57,427 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:55:57,533 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:55:57,648 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKwCEAA&alt=json
+2026-04-27 12:55:57,762 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CN4CEAA&alt=json
+2026-04-27 12:55:57,866 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CJADEAA&alt=json
+2026-04-27 12:55:57,975 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CMIDEAA&alt=json
+2026-04-27 12:55:58,105 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CPQDEAA&alt=json
+2026-04-27 12:55:58,208 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKYEEAA&alt=json
+2026-04-27 12:55:58,301 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNgEEAA&alt=json
+2026-04-27 12:55:58,408 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIoFEAA&alt=json
+2026-04-27 12:55:58,608 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLwFEAA&alt=json
+2026-04-27 12:55:58,728 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CO4FEAA&alt=json
+2026-04-27 12:55:58,842 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CKAGEAA&alt=json
+2026-04-27 12:55:58,949 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CNIGEAA&alt=json
+2026-04-27 12:55:59,059 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CIQHEAA&alt=json
+2026-04-27 12:55:59,174 URL being requested: GET https://youtube.googleapis.com/youtube/v3/videos?part=id%2Csnippet&myRating=like&maxResults=50&pageToken=CLYHEAA&alt=json
+2026-04-27 12:55:59,627 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&alt=json
+2026-04-27 12:55:59,798 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CDIQAA&alt=json
+2026-04-27 12:55:59,960 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CGQQAA&alt=json
+2026-04-27 12:56:00,079 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CJYBEAA&alt=json
+2026-04-27 12:56:00,206 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CMgBEAA&alt=json
+2026-04-27 12:56:00,340 URL being requested: GET https://youtube.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true&maxResults=50&pageToken=CPoBEAA&alt=json
+2026-04-27 12:56:00,481 登録CH新規: 1 件 / 削除: 0 件 (API: 273, cache: 272)
+2026-04-27 12:56:00,491 URL being requested: GET https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&id=UCTIccX-vux4ktsd1zwe0XxA&alt=json
+2026-04-27 12:56:00,564 URL being requested: GET https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json
+2026-04-27 12:56:00,785 登録CH失敗 ゆっくりモテ男アニメ解説: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUTIccX-vux4ktsd1zwe0XxA&maxResults=50&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+2026-04-27 12:56:01,129 高評価未登録CH新規: 0 件 / 削除: 0 件

@@ -1,5 +1,6 @@
 import ctypes
 import json
+import logging
 import os
 import random
 import threading
@@ -9,6 +10,13 @@ import tkinter as tk
 from tkinter import messagebox
 
 ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
+
+logging.basicConfig(
+    filename="startup_update.log",
+    level=logging.DEBUG,
+    format="%(asctime)s %(message)s",
+    encoding="utf-8",
+)
 
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -367,7 +375,130 @@ class App:
     def _finish_auth(self):
         self._loading_frame.destroy()
         self._build_main_ui()
+        self._load_pools_from_cache()
         self._start_liked_prefetch()
+        # _start_startup_update は liked_prefetch 完了後に直列で呼ばれる
+
+    def _load_pools_from_cache(self):
+        sub_cache = _load_cache(SUBSCRIBED_CACHE_FILE)
+        if sub_cache["channels"]:
+            vids = _cache_to_videos(sub_cache)
+            self.pools["subscribed"] = vids
+            self.remaining["subscribed"] = vids.copy()
+
+        lch_cache = _load_cache(LIKED_CH_CACHE_FILE)
+        if lch_cache["channels"]:
+            vids = _cache_to_videos(lch_cache)
+            self.pools["liked_channels"] = vids
+            self.remaining["liked_channels"] = vids.copy()
+
+    def _start_startup_update(self):
+        """起動時: 新規チャンネルのみ差分取得してキャッシュ・プールを更新する"""
+        sub_cache = _load_cache(SUBSCRIBED_CACHE_FILE)
+        lch_cache = _load_cache(LIKED_CH_CACHE_FILE)
+        has_sub = bool(sub_cache["channels"])
+        has_lch = bool(lch_cache["channels"])
+        if not has_sub and not has_lch:
+            return
+
+        if has_sub:
+            self._building.add("subscribed")
+        if has_lch:
+            self._building.add("liked_channels")
+
+        def prog(text):
+            self._ui(lambda t=text: self._mode_label.config(text=t))
+
+        def worker():
+            try:
+                prog("新規チャンネル確認中...")
+                subs = get_all_subscriptions(self.youtube, prog)
+                self.subscriptions = subs
+                sub_ids = {ch["channel_id"] for ch in subs}
+
+                if has_sub:
+                    # 登録解除されたチャンネルを削除
+                    removed_subs = [cid for cid in list(sub_cache["channels"]) if cid not in sub_ids]
+                    for cid in removed_subs:
+                        logging.info(f"登録解除CH削除: {sub_cache['channels'][cid].get('name', cid)}")
+                        del sub_cache["channels"][cid]
+
+                    new_subs = [ch for ch in subs if ch["channel_id"] not in sub_cache["channels"]]
+                    logging.info(f"登録CH新規: {len(new_subs)} 件 / 削除: {len(removed_subs)} 件 (API: {len(subs)}, cache: {len(sub_cache['channels'])})")
+                    for i, ch in enumerate(new_subs):
+                        cid, name = ch["channel_id"], ch["name"]
+                        prog(f"新規登録CH {i+1}/{len(new_subs)}: {name}")
+                        try:
+                            pid = get_uploads_playlist_id(self.youtube, cid)
+                            if pid:
+                                sub_cache["channels"][cid] = {
+                                    "name": name,
+                                    "videos": fetch_channel_videos(self.youtube, pid),
+                                }
+                                logging.info(f"登録CH追加: {name}")
+                        except Exception as e:
+                            logging.error(f"登録CH失敗 {name}: {e}")
+                    if removed_subs or new_subs:
+                        _save_cache(SUBSCRIBED_CACHE_FILE, sub_cache)
+                        vids = _cache_to_videos(sub_cache)
+                        self.pools["subscribed"] = vids
+                        self.remaining["subscribed"] = vids.copy()
+                    self._building.discard("subscribed")
+                    if self.current_mode == "subscribed":
+                        self._ui(lambda: self._open_next("subscribed"))
+
+                if has_lch:
+                    prog("高評価新規CHチェック中...")
+                    # liked_prefetch が取得済みの動画をそのまま再利用（API 二重コール不要）
+                    liked_vids = self.pools.get("liked") or get_all_liked_videos(self.youtube, prog)
+                    seen, liked_chs = set(), []
+                    for v in liked_vids:
+                        cid = v.get("channel_id")
+                        if cid and cid not in seen and cid not in sub_ids:
+                            seen.add(cid)
+                            liked_chs.append({"channel_id": cid, "name": v["channel"]})
+
+                    liked_ch_ids = {ch["channel_id"] for ch in liked_chs}
+
+                    # 高評価解除 or 登録済みになったチャンネルを削除
+                    removed_lch = [cid for cid in list(lch_cache["channels"]) if cid not in liked_ch_ids]
+                    for cid in removed_lch:
+                        logging.info(f"高評価CH削除: {lch_cache['channels'][cid].get('name', cid)}")
+                        del lch_cache["channels"][cid]
+
+                    new_lch = [ch for ch in liked_chs if ch["channel_id"] not in lch_cache["channels"]]
+                    logging.info(f"高評価未登録CH新規: {len(new_lch)} 件 / 削除: {len(removed_lch)} 件")
+                    for i, ch in enumerate(new_lch):
+                        cid, name = ch["channel_id"], ch["name"]
+                        prog(f"新規高評価CH {i+1}/{len(new_lch)}: {name}")
+                        try:
+                            pid = get_uploads_playlist_id(self.youtube, cid)
+                            if pid:
+                                lch_cache["channels"][cid] = {
+                                    "name": name,
+                                    "videos": fetch_channel_videos(self.youtube, pid),
+                                }
+                                logging.info(f"高評価CH追加: {name}")
+                        except Exception as e:
+                            logging.error(f"高評価CH失敗 {name}: {e}")
+                    if removed_lch or new_lch:
+                        _save_cache(LIKED_CH_CACHE_FILE, lch_cache)
+                        vids = _cache_to_videos(lch_cache)
+                        self.pools["liked_channels"] = vids
+                        self.remaining["liked_channels"] = vids.copy()
+                    self._building.discard("liked_channels")
+                    if self.current_mode == "liked_channels":
+                        self._ui(lambda: self._open_next("liked_channels"))
+
+            except Exception as e:
+                logging.error(f"起動時更新エラー: {e}", exc_info=True)
+                self._ui(lambda err=e: messagebox.showerror("起動時更新エラー", str(err)))
+                self._building.discard("subscribed")
+                self._building.discard("liked_channels")
+
+            self._ui(lambda: self._mode_label.config(text="← ボタンを押して動画を開く"))
+
+        threading.Thread(target=worker, daemon=True).start()
 
     def _start_liked_prefetch(self):
         self._building.add("liked")
@@ -380,14 +511,16 @@ class App:
                 )
             except Exception:
                 self._building.discard("liked")
+                self._ui(self._start_startup_update)
                 return
             self._building.discard("liked")
             random.shuffle(videos)
             self.pools["liked"] = videos
             self.remaining["liked"] = videos.copy()
-            self._ui(lambda: self._mode_label.config(text="← ボタンを押して動画を開く"))
             if self.current_mode == "liked":
                 self._ui(lambda: self._open_next("liked"))
+            # liked 完了後に直列で起動チェック開始（SSL 競合回避）
+            self._ui(self._start_startup_update)
 
         threading.Thread(target=worker, daemon=True).start()
 
@@ -446,14 +579,10 @@ class App:
         sub_frame.pack(fill="x")
 
         tk.Label(sub_frame, text="登録チャンネル:", font=("", 8), fg="#1a73e8").pack(side="left", padx=(0, 5))
-        tk.Button(sub_frame, text="追加更新", font=("", 9),
+        tk.Button(sub_frame, text="全チャンネル新規動画更新", font=("", 9),
                   bg="#ddeeff", fg="#1a73e8", activebackground="#c5e0ff",
                   relief="flat", padx=8, pady=3, cursor="hand2",
                   command=self._refresh_subscribed).pack(side="left", padx=(0, 4))
-        tk.Button(sub_frame, text="キャッシュ削除", font=("", 9),
-                  bg="#ddeeff", fg="#1a73e8", activebackground="#c5e0ff",
-                  relief="flat", padx=8, pady=3, cursor="hand2",
-                  command=self._clear_subscribed_cache).pack(side="left", padx=(0, 4))
         tk.Button(sub_frame, text="一覧", font=("", 9),
                   bg="#ddeeff", fg="#1a73e8", activebackground="#c5e0ff",
                   relief="flat", padx=8, pady=3, cursor="hand2",
@@ -466,14 +595,10 @@ class App:
         lch_frame.pack(fill="x")
 
         tk.Label(lch_frame, text="高評価・未登録CH:", font=("", 8), fg="#e8871a").pack(side="left", padx=(0, 5))
-        tk.Button(lch_frame, text="追加更新", font=("", 9),
+        tk.Button(lch_frame, text="全チャンネル新規動画更新", font=("", 9),
                   bg="#fdeedd", fg="#e8871a", activebackground="#fad9b5",
                   relief="flat", padx=8, pady=3, cursor="hand2",
                   command=self._refresh_liked_channels).pack(side="left", padx=(0, 4))
-        tk.Button(lch_frame, text="キャッシュ削除", font=("", 9),
-                  bg="#fdeedd", fg="#e8871a", activebackground="#fad9b5",
-                  relief="flat", padx=8, pady=3, cursor="hand2",
-                  command=self._clear_liked_channels_cache).pack(side="left")
 
         tk.Frame(self.root, height=1, bg="#f0f0f0").pack(fill="x")
 
@@ -491,12 +616,12 @@ class App:
 
     def _on_mode(self, mode_key):
         self.current_mode = mode_key
-        if self.pools[mode_key]:
-            self._open_next(mode_key)
-        elif mode_key in self._building:
-            self._title_label.config(text="取得中... 完了後に自動で開きます")
+        if mode_key in self._building:
+            self._title_label.config(text="新規チャンネル確認中... 完了後に自動で開きます")
             self._channel_label.config(text="")
             self._count_label.config(text="")
+        elif self.pools[mode_key]:
+            self._open_next(mode_key)
         else:
             self._start_pool_build(mode_key)
 
@@ -707,19 +832,6 @@ class App:
 
         listbox.bind("<<ListboxSelect>>", on_select)
 
-    def _clear_subscribed_cache(self):
-        if messagebox.askyesno("確認", "登録チャンネルのキャッシュを削除しますか？"):
-            if os.path.exists(SUBSCRIBED_CACHE_FILE):
-                os.remove(SUBSCRIBED_CACHE_FILE)
-            self.pools["subscribed"] = []
-            self.remaining["subscribed"] = []
-
-    def _clear_liked_channels_cache(self):
-        if messagebox.askyesno("確認", "高評価・未登録CHのキャッシュを削除しますか？"):
-            if os.path.exists(LIKED_CH_CACHE_FILE):
-                os.remove(LIKED_CH_CACHE_FILE)
-            self.pools["liked_channels"] = []
-            self.remaining["liked_channels"] = []
 
 
 def main():
